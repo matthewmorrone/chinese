@@ -42,7 +42,13 @@ foreach($file as $key=>&$line):
 endforeach;
 
 foreach($file as $line):
-  $name = $names[$line[0]];
+  $name = substr($names[$line[0]], 0, 50);
+  if (strlen($name) > 49 && strcmp($name[strlen($name)-1], "_") !== 0) {
+    $name = explode("_", $name);
+    array_pop($name);
+    $name = implode("_", $name);
+  }
+  $name = rtrim($name, "_");
   if (!name) continue;
   $name = 'u'.strtolower($name);
   $svg = "";
